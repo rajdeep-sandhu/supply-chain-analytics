@@ -1,3 +1,5 @@
+"""Equipment analytics."""
+
 import marimo
 
 __generated_with = "0.24.0"
@@ -54,9 +56,7 @@ def _(trans_file_element):
     ux_trans: pl.DataFrame | None = None
     ux_trans_filename: str | None = None
 
-    ux_trans_filename, ux_trans = dataprep.file_element_to_df(
-        trans_file_element
-    )
+    ux_trans_filename, ux_trans = dataprep.file_element_to_df(trans_file_element)
     return (ux_trans,)
 
 
@@ -116,13 +116,9 @@ def _(mo, ux_trans: pl.DataFrame | None):
             ux_trans["date_extracted"], value=max_trans_date, label="End Date"
         )
 
-        site_picker = mo.ui.multiselect(
-            options=sites, label="Site Code", value=None
-        )
+        site_picker = mo.ui.multiselect(options=sites, label="Site Code", value=None)
 
-        sku_picker = mo.ui.multiselect(
-            options=skus, label="Product Code", value=None
-        )
+        sku_picker = mo.ui.multiselect(options=skus, label="Product Code", value=None)
     return end_date_picker, sku_picker, start_date_picker
 
 
@@ -171,14 +167,14 @@ def _(end_date_picker, mo):
             ux_trans_dated AS
             (
             SELECT
-            	"Site Code",
-            	"Product Code",
-            	"Quantity",
-            	date_extracted
+                "Site Code",
+                "Product Code",
+                "Quantity",
+                date_extracted
             FROM
-            	ux_trans
+                ux_trans
             WHERE
-        		date_extracted <= '{end_date_picker.value.isoformat()}'
+                date_extracted <= '{end_date_picker.value.isoformat()}'
             )
 
         PIVOT ux_trans_dated
