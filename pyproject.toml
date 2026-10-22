@@ -1,7 +1,7 @@
 [project]
-name = "inventory-analysis"
+name = "supply-chain-analytics"
 version = "0.1.0"
-description = "Various notebooks for inventory analysis."
+description = "Various notebooks for supply chain analytics."
 readme = "README.md"
 authors = [
     { name = "Rajdeep Sandhu", email = "168480080+rajdeep-sandhu@users.noreply.github.com" }
@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-inventory-analysis = "inventory_analysis:main"
+supply-chain-analytics = "supply_chain_analytics:main"
 
 [build-system]
 requires = ["uv_build>=0.8.5,<0.9.0"]
