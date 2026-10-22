@@ -59,3 +59,10 @@ project-includes = [
     "**/*.ipynb",
 ]
 search-path = ["src", "."]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "D"]
+# extend-select = ["E501"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
