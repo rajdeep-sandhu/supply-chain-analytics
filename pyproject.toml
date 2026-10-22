@@ -10,7 +10,7 @@ requires-python = ">=3.15"
 dependencies = [
     "duckdb>=2.0.0",
     "fastexcel>=0.20.2",
-    "marimo[recommended, lsp]>=0.24.0",
+    "marimo[recommended, lsp]>=0.25.0",
     "matplotlib>=3.11.1",
     "panel>=1.9.3",
 ]
