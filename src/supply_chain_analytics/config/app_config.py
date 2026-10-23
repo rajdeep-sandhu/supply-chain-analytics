@@ -15,3 +15,8 @@ class AppConfig:
     project_root_dir: Path = field(
         default_factory=lambda: Path(__file__).resolve().parents[3]
     )
+
+    @property
+    def dev_data_dir(self) -> Path:
+        """Return dev_data dir path from project root."""
+        return self.project_root_dir / "src/supply_chain_analytics/dev_data"
