@@ -1,6 +1,11 @@
 """App config data."""
 
-from dataclasses import dataclass
+import logging
+from dataclasses import dataclass, field
+from pathlib import Path
+
+# Get a logger
+logger: logging.Logger = logging.getLogger(__name__)
 
 
 @dataclass
