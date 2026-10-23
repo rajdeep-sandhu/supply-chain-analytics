@@ -33,18 +33,21 @@ dev = [
 [tool.marimo.completion]
 signature_hint_on_typing = true
 
-[tool.marimo.package_management]
-manager = "uv"
-
 [tool.marimo.display]
 default_width = "full"
 
-[tool.marimo.save]
-format_on_save = true
+[tool.marimo.language_servers.pyrefly]
+enabled = true
+
+[tool.marimo.package_management]
+manager = "uv"
 
 [tool.marimo.runtime]
 auto_instantiate = true
 auto_reload = "autorun"
+
+[tool.marimo.save]
+format_on_save = true
 
 [tool.pytest]
 log_cli = true
