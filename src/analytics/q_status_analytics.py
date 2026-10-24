@@ -1,6 +1,7 @@
 """Q Status Analytics notebook."""
 
 # pyrefly: ignore-errors[implicit-any-parameter]
+
 import marimo
 
 __generated_with = "0.25.2"
@@ -41,6 +42,26 @@ def _(config):
         df_dict = pl.read_excel(
             source=config.dashboard_6am_snapshot_workbook,
             sheet_name=q_status_worksheets,
+        )
+
+        q_stat_trend_schema: pl.Schema = pl.Schema(
+            {
+                "DATE": pl.Date,
+                "SITE": pl.String,
+                "A": pl.Int64,
+                "A1": pl.Int64,
+                "Q": pl.Int64,
+                "Q1": pl.Int64,
+                "Q2": pl.Int64,
+                "Q3": pl.Int64,
+                "Q4": pl.Int64,
+                "Q5": pl.Int64,
+                "Q6": pl.Int64,
+            }
+        )
+
+        df_dict["q_stat_trend"] = df_dict["q_stat_trend"].cast(
+            dtypes=q_stat_trend_schema, strict=True
         )
 
         return df_dict
