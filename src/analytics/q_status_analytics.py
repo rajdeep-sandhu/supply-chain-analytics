@@ -42,6 +42,13 @@ def _(config):
 
         return df_dict
 
+    return (load_q_status_tables,)
+
+
+@app.cell
+def _(load_q_status_tables):
+    q_status_tables: dict[str, pl.DataFrame] = load_q_status_tables()
+    mo.ui.tabs(tabs=q_status_tables, label="Q Status Tables", lazy=True)
     return
 
 
