@@ -73,6 +73,26 @@ def _(config):
 def _(load_q_status_tables):
     q_status_tables: dict[str, pl.DataFrame] = load_q_status_tables()
     mo.ui.tabs(tabs=q_status_tables, label="Q Status Tables", lazy=True)
+    return (q_status_tables,)
+
+
+@app.cell
+def _(q_status_tables: dict[str, pl.DataFrame]):
+    q_stat_trend: pl.DataFrame = q_status_tables["q_stat_trend"]
+    return (q_stat_trend,)
+
+
+@app.cell
+def _(q_stat_trend: pl.DataFrame):
+    q_stat_trend_long = mo.sql(
+        f"""
+        FROM q_stat_trend
+        UNPIVOT INCLUDE NULLS (
+            ITEMS
+            FOR Q_STATUS IN (A, A1, Q, Q1, Q2, Q3, Q4, Q5, Q6)
+        );
+        """
+    )
     return
 
 
