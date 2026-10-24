@@ -204,3 +204,6 @@ __marimo__/
 
 # Temporary development folders
 dev_data/
+
+# App data folders
+data/
