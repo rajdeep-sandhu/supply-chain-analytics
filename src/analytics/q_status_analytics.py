@@ -10,6 +10,7 @@ app = marimo.App(width="full", app_title="Q Status Analytics")
 with app.setup:
     import marimo as mo
     import polars as pl
+    from duckdb import DuckDBPyConnection
 
     from analytics.config import AppConfig
 
@@ -82,14 +83,31 @@ def _(q_status_tables: dict[str, pl.DataFrame]):
     return (q_stat_trend,)
 
 
+@app.function
+def get_status_columns(df: pl.DataFrame) -> str:
+    """Return the q_stat_trend status columns."""
+    status_columns: list[str] = [
+        column for column in df.columns if column not in ["DATE", "SITE"]
+    ]
+    status_columns_str: str = ", ".join(f"'{column}'" for column in status_columns)
+
+    return status_columns_str
+
+
 @app.cell
 def _(q_stat_trend: pl.DataFrame):
+    status_columns: str = get_status_columns(df=q_stat_trend)
+    return (status_columns,)
+
+
+@app.cell
+def _(q_stat_trend: pl.DataFrame, status_columns: str):
     q_stat_trend_long = mo.sql(
         f"""
         FROM q_stat_trend
         UNPIVOT INCLUDE NULLS (
             ITEMS
-            FOR Q_STATUS IN (A, A1, Q, Q1, Q2, Q3, Q4, Q5, Q6)
+            FOR Q_STATUS IN ({status_columns})
         );
         """
     )
