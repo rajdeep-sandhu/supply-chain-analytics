@@ -19,4 +19,6 @@ class AppConfig:
     @property
     def dev_data_dir(self) -> Path:
         """Return dev_data dir path from project root."""
-        return self.project_root_dir / "src/supply_chain_analytics/dev_data"
+        return self.project_root_dir / "src/analytics/dev_data"
+
+
