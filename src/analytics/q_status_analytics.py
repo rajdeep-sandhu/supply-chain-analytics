@@ -1,5 +1,6 @@
 """Q Status Analytics notebook."""
 
+# pyrefly: ignore-errors[implicit-any-parameter]
 import marimo
 
 __generated_with = "0.25.2"
