@@ -11,7 +11,7 @@ with app.setup:
     import duckdb
     import polars as pl
 
-    from supply_chain_analytics.equipment import dataprep
+    from analytics.equipment import dataprep
 
 
 @app.cell(hide_code=True)
