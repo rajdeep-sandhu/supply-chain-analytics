@@ -22,6 +22,6 @@ class AppConfig:
         return self.project_root_dir / "src/analytics/dev_data"
 
     @property
-    def snapshot_6am_dashboard_workbook(self) -> Path:
+    def dashboard_6am_snapshot_workbook(self) -> Path:
         """Return seed data workbook path for sample data seeding."""
         return self.dev_data_dir / "6AM Snapshot Dashboard.xlsx"
