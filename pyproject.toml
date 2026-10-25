@@ -28,6 +28,11 @@ dev = [
     "seaborn>=0.13.2",
 ]
 
+# Amend as per package path.
+[tool.uv.build-backend]
+module-name = "analytics"
+module-root = "src"
+
 [tool.marimo.completion]
 signature_hint_on_typing = true
 
