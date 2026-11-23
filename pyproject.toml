@@ -13,6 +13,7 @@ dependencies = [
     "marimo[recommended, lsp]>=0.25.0",
     "matplotlib>=3.11.1",
     "panel>=1.9.3",
+    "plotly>=7.1.0",
 ]
 
 [build-system]
