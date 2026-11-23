@@ -13,6 +13,7 @@ with app.setup:
     from duckdb import DuckDBPyConnection
 
     from analytics.config import AppConfig
+    from analytics.db.factories import DuckDBFactory
 
 
 @app.cell(hide_code=True)
@@ -26,12 +27,15 @@ def _():
 @app.cell
 def _():
     # App setup
-    config = AppConfig()
-    return (config,)
+    config: AppConfig = AppConfig()
+    conn: DuckDBPyConnection = DuckDBFactory(
+        config.analytics_database_file
+    ).create_connection()
+    return config, conn
 
 
 @app.cell
-def _(config):
+def _(config: AppConfig):
     def load_q_status_tables() -> dict[str, pl.DataFrame]:
         """Load Q Status tables from the 6AM Snapshot Dasboard workbook."""
         q_status_worksheets: list[str] = [
@@ -89,7 +93,9 @@ def get_status_columns(df: pl.DataFrame) -> str:
     status_columns: list[str] = [
         column for column in df.columns if column not in ["DATE", "SITE"]
     ]
-    status_columns_str: str = ", ".join(f"'{column}'" for column in status_columns)
+    status_columns_str: str = ", ".join(
+        f"'{column}'" for column in status_columns
+    )
 
     return status_columns_str
 
@@ -101,7 +107,11 @@ def _(q_stat_trend: pl.DataFrame):
 
 
 @app.cell
-def _(q_stat_trend: pl.DataFrame, status_columns: str):
+def _(
+    conn: DuckDBPyConnection,
+    q_stat_trend: pl.DataFrame,
+    status_columns: str,
+):
     q_stat_trend_long = mo.sql(
         f"""
         FROM q_stat_trend
@@ -109,7 +119,8 @@ def _(q_stat_trend: pl.DataFrame, status_columns: str):
             ITEMS
             FOR Q_STATUS IN ({status_columns})
         );
-        """
+        """,
+        engine=conn
     )
     return
 
